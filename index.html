@@ -1421,7 +1421,9 @@ renderB(); // initial state: recent customers
    A/B TEST VOTING LOGIC (Formspree)
 ============================================================ */
 (function() {
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mqejqgwl';
+  // ⚠️ REPLACE THIS WITH YOUR FORMSPREE ENDPOINT
+  // Get it from https://formspree.io after creating a form
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mjgzwozg';
 
   const MY_VOTE_KEY = 'unicaja_search_ab_my_vote_v1';
 
@@ -1453,7 +1455,6 @@ renderB(); // initial state: recent customers
   // ── Submit vote to Formspree ──
   async function submitVote(vote, feedback) {
     const payload = {
-      test_id: 'unicaja_search_v1',
       vote_option: vote,
       vote_label: VOTE_LABELS[vote] || vote,
       feedback: (feedback || '').trim(),
@@ -1489,6 +1490,12 @@ renderB(); // initial state: recent customers
   // ── Handle vote click ──
   async function handleVote(vote) {
     const feedback = feedbackText.value;
+
+    // Check the endpoint was configured
+    if(FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+      alert('⚠️ Falta configurar el endpoint de Formspree.\n\nEditá el archivo HTML y reemplazá YOUR_FORM_ID con tu ID de Formspree.');
+      return;
+    }
 
     setButtonsLoading(true);
 
